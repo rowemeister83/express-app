@@ -28,6 +28,16 @@ const get = () => {
     });
 }
 
+const getID = () => {
+
+  axios.get(`/read/${DOM.idInput.value}`)
+    .then((response) => {
+      console.log(response);
+      DOM.idOutput.innerHTML = `${JSON.stringify(response.data)}`;
+    }).catch((err) => {
+      console.log(err);
+    });
+}
 // POST function
 const post = () => {
   axios.post(`/create`, {name : DOM.inputName.value})
@@ -39,4 +49,26 @@ const post = () => {
     });
 }
 
+const update = () => {
+  axios.put(`/update/${DOM.idUpdate.value}`, {name: DOM.nameUpdate.value})
+    .then((response) => {
+      console.log(response);
+      get();
+    }).catch((err) => {
+      console.log(err);
+    });
+}
+
+const remove = () => {
+  axios.delete(`/delete/${DOM.idDelete.value}`)
+    .then((response) => {
+      console.log(response);
+      get();
+    }).catch((err) => {
+      console.log(err);
+    });
+}
 DOM.buttonCreate.onclick = () => post();
+DOM.GetIdButton.onclick = () => getID();
+DOM.updateButton.onclick = () => update();
+DOM.deleteButton.onclick = () => remove();
